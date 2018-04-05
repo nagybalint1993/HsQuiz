@@ -39,3 +39,4 @@ notifications:
     recipients:
     - nagybalint1993@gmail.com
     on_failure: always
+    on_success: always
