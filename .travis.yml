@@ -18,6 +18,8 @@ before_install:
   - yes | sdkmanager "platforms;android-26"
   - chmod +x gradlew
 
+script: ./gradlew :app:build
+
 deploy:
   provider: releases
   api_key: $GITHUB_KEY
