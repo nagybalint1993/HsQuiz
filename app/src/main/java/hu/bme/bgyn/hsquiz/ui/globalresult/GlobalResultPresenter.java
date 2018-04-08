@@ -1,11 +1,11 @@
-package hu.bme.bgyn.hsquiz.ui.game;
+package hu.bme.bgyn.hsquiz.ui.globalresult;
 
 import hu.bme.bgyn.hsquiz.ui.BasePresenter;
 
-public class GamePresenter extends BasePresenter<GameScreen> {
+public class GlobalResultPresenter extends BasePresenter<GlobalResultScreen> {
 
     @Override
-    public void attachScreen(GameScreen screen) {
+    public void attachScreen(GlobalResultScreen screen) {
         super.attachScreen(screen);
     }
 
