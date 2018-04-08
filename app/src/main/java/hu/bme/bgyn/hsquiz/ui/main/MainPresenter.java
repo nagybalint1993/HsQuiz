@@ -1,6 +1,6 @@
 package hu.bme.bgyn.hsquiz.ui.main;
 
-import hu.bme.bgyn.hsquiz.BasePresenter;
+import hu.bme.bgyn.hsquiz.ui.BasePresenter;
 
 public class MainPresenter extends BasePresenter<MainScreen> {
 
