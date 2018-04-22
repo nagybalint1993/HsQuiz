@@ -1,0 +1,133 @@
+swagger: '2.0'
+info:
+  title: Hearhstone Quiz,
+  description: A quiz game with hearthstone cards
+  version: "1.0.0"
+
+schemes:
+  - https
+
+host: "omgvamp-hearthstone-v1.p.mashape.com"
+
+produces:
+  - application/json
+  
+
+paths:
+  /cards:
+    get:
+      summary: Get all cards
+      description: |
+        Returns all hearthstone cards
+      tags:
+        - Cards
+      responses:
+        304:
+          description: No changes
+        200:
+          description: An array of requirements
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Card'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /cards/{name}:
+    get:
+      summary: Get one card
+      description: |
+      parameters:
+        - name: name
+          in: path
+          description: Id.
+          required: true
+          type: string
+          format: string
+      tags:
+        - Requirements
+      responses:
+        200:
+          description: Details.
+          schema:
+            $ref: '#/definitions/Card'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    
+definitions:
+  Card:
+    type: object
+    properties:
+      cardId:
+        type: string
+        description: Id.
+      dbfId:
+        type: string
+        description: DbfId
+      name:
+        type: string
+        format: Name of the card
+      cardSet:
+        type: string
+        description: Cardset.
+      type:
+        type: string
+        description: Type of the card.
+      faction:
+        type: string
+        description: Faction
+      rarity:
+        type: string
+        description: Rarity.
+      cost:
+        type: integer
+        description: Cost of the card.
+      attack:
+        type: integer
+        description: Attack of the card.
+      health:
+        type: integer
+        description: Cost of the card.
+      text:
+        type: string
+        description: The text of the card.
+      flavor:
+        type: string
+        description: Flavor
+      artist:
+        type: string
+        description: Artist
+      collectible:
+        type: boolean
+        description: .
+      elite:
+        type: boolean
+        description: .
+      playerClass:
+        type: string
+        description: Class of the card.
+      img:
+        type: string
+        description: image url.
+      imgGold:
+        type: string
+        description: Gold image gif url.
+      locale:
+        type: string
+        description: .
+      mechanics:
+        type: string
+        description: .
+      
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
