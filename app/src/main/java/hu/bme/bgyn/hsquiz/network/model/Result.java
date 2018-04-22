@@ -66,7 +66,7 @@ public class Result   {
    * The name of the table in the database.
    **/
   @ApiModelProperty(value = "The name of the table in the database.")
-  public String getClass() {
+  public String getClassAttribute() {
     return _class;
   }
   public void setClass(String _class) {
@@ -80,7 +80,7 @@ public class Result   {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (o == null) {
       return false;
     }
     Result result = (Result) o;
