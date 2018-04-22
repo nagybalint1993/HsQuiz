@@ -1,0 +1,99 @@
+swagger: '2.0'
+info:
+  title: Hearhstone Quiz Results,
+  description: Quiz game results
+  version: "1.0.0"
+
+schemes:
+  - https
+
+host: "api.backendless.com"
+
+basePath: "/5F024CA5-3A0F-2230-FF97-96278D989400/1932725A-8F41-AF1A-FF62-461F9A137700"
+
+produces:
+  - application/json
+  
+
+paths:
+  /Results:
+    get:
+      summary: Get all result
+      description: |
+        Returns all result
+      tags:
+        - Result
+      responses:
+        200:
+          description: "Request was successful"
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Result'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a new result
+      tags:
+        - Result
+      parameters:
+        - name: data
+          in: body
+          description: Result data
+          required: true
+          schema: 
+            $ref: '#/definitions/Result' 
+      responses:
+        200:
+          description: Request was successful
+          schema:
+            $ref: '#/definitions/Result'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/Results/{id}':
+    delete:
+      tags:
+        - Result
+      summary: Delete a Result instance 
+      parameters:
+        - name: id
+          in: path
+          description: Model id
+          required: true
+          type: string
+          format: JSON
+      responses:
+        200:
+          description: Request was successful
+          schema:
+            type: "object"
+definitions:
+  Result:
+    type: object
+    properties:
+      User:
+        type: string
+        description: Username
+      Point:
+        type: integer
+        description: Scored points
+      objectId:
+        type: string
+        description: ID
+      ___class:
+        type: string
+        description: The name of the table in the database.
+      
+      
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
