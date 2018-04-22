@@ -2,12 +2,14 @@ package hu.bme.bgyn.hsquiz.network;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 import hu.bme.bgyn.hsquiz.network.api.CardsApi;
 import hu.bme.bgyn.hsquiz.network.api.ResultApi;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+@Module
 public class NetworkModule {
     @Provides
     @Singleton
