@@ -1,6 +1,5 @@
 package hu.bme.bgyn.hsquiz.network.api;
 
-import io.swagger.client.CollectionFormats.*;
 
 
 import retrofit2.Call;
@@ -8,8 +7,8 @@ import retrofit2.http.*;
 
 import okhttp3.RequestBody;
 
-import io.swagger.client.model.Error;
-import io.swagger.client.model.Card;
+import hu.bme.bgyn.hsquiz.network.model.Error;
+import hu.bme.bgyn.hsquiz.network.model.Card;
 
 import java.util.ArrayList;
 import java.util.HashMap;
