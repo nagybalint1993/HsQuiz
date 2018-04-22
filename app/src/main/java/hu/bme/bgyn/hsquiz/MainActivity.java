@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import hu.bme.bgyn.hsquiz.model.Result;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
     }
 
 }

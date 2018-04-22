@@ -1,4 +1,4 @@
-package hu.bme.bgyn.hsquiz.network.model;
+package hu.bme.bgyn.hsquiz.model;
 
 import java.util.Objects;
 import io.swagger.annotations.ApiModel;
