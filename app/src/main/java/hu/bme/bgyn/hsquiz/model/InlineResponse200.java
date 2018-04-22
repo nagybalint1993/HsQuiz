@@ -1,8 +1,6 @@
-package hu.bme.bgyn.hsquiz.network.model;
+package hu.bme.bgyn.hsquiz.model;
 
 import java.util.Objects;
-
-import com.google.gson.annotations.SerializedName;
 
 import io.swagger.annotations.ApiModel;
 
