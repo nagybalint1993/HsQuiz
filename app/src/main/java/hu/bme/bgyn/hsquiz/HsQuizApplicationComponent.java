@@ -9,12 +9,16 @@ import hu.bme.bgyn.hsquiz.interactor.ResultIteractor;
 import hu.bme.bgyn.hsquiz.network.NetworkModule;
 import hu.bme.bgyn.hsquiz.ui.UIModule;
 import hu.bme.bgyn.hsquiz.ui.main.MainActivity;
+import hu.bme.bgyn.hsquiz.ui.main.MainPresenter;
 
 @Singleton
 @Component(modules = {UIModule.class, NetworkModule.class,
         InteractorModule.class})
 public interface HsQuizApplicationComponent {
+
     void inject(MainActivity mainActivity);
+
+    void inject(MainPresenter mainPresenter);
 
     void inject(ResultIteractor resultInteractor);
 
