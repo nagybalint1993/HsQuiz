@@ -13,4 +13,8 @@ public class MainPresenter extends BasePresenter<MainScreen> {
     public void detachScreen() {
         super.detachScreen();
     }
+
+    public void onStartButtonPressed(){
+
+    }
 }
