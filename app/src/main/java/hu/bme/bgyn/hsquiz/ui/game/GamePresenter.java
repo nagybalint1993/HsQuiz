@@ -13,4 +13,12 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     public void detachScreen() {
         super.detachScreen();
     }
+
+    public void gameButtonPressed(int i) {
+
+    }
+
+    public void initGame(){
+
+    }
 }

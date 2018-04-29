@@ -15,6 +15,14 @@ public class MainPresenter extends BasePresenter<MainScreen> {
     }
 
     public void onStartButtonPressed(){
+        screen.startGame();
+    }
 
+    public void onLocalResultButtonPressed() {
+        screen.showLocalResult();
+    }
+
+    public void onGlobalResultButtonPressed() {
+        screen.showGlobalResult();
     }
 }
