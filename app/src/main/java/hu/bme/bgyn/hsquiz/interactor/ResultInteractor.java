@@ -1,5 +1,7 @@
 package hu.bme.bgyn.hsquiz.interactor;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -12,12 +14,12 @@ import hu.bme.bgyn.hsquiz.network.api.ResultApi;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ResultIteractor {
+public class ResultInteractor {
 
     @Inject
     ResultApi resultApi;
 
-    public ResultIteractor(){
+    public ResultInteractor(){
         HsQuizApplication.injector.inject(this);
     }
 
@@ -30,9 +32,10 @@ public class ResultIteractor {
                 throw new Exception("Result code is not 200");
             }
             event.setResultstList(response.body());
-
+            EventBus.getDefault().post(event);
         } catch (Exception e) {
             event.setThrowable(e);
+            EventBus.getDefault().post(event);
         }
     }
 }

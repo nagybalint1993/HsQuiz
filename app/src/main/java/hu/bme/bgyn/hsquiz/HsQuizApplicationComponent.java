@@ -3,9 +3,9 @@ package hu.bme.bgyn.hsquiz;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import hu.bme.bgyn.hsquiz.interactor.HSCardIteractor;
+import hu.bme.bgyn.hsquiz.interactor.HSCardInteractor;
 import hu.bme.bgyn.hsquiz.interactor.InteractorModule;
-import hu.bme.bgyn.hsquiz.interactor.ResultIteractor;
+import hu.bme.bgyn.hsquiz.interactor.ResultInteractor;
 import hu.bme.bgyn.hsquiz.network.NetworkModule;
 import hu.bme.bgyn.hsquiz.ui.UIModule;
 import hu.bme.bgyn.hsquiz.ui.game.GameActivity;
@@ -26,9 +26,9 @@ public interface HsQuizApplicationComponent {
 
     void inject(MainPresenter mainPresenter);
 
-    void inject(ResultIteractor resultInteractor);
+    void inject(ResultInteractor resultInteractor);
 
-    void inject(HSCardIteractor hsCardInteractor);
+    void inject(HSCardInteractor hsCardInteractor);
 
     void inject(GameActivity gameActivity);
 

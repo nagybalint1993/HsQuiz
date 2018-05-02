@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,11 @@ public class GlobalResultActivity extends AppCompatActivity implements GlobalRes
     protected void onStart() {
         super.onStart();
         globalResultPresenter.attachScreen(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         globalResultPresenter.refreshResults();
     }
 
@@ -63,5 +69,10 @@ public class GlobalResultActivity extends AppCompatActivity implements GlobalRes
         resultList.addAll(results);
 
         resultsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showNetworkError(String errorMsg) {
+        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
     }
 }

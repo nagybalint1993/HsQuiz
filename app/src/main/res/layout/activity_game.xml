@@ -19,8 +19,10 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="289dp"
-        app:srcCompat="?attr/editTextBackground" />
+        android:layout_height="290dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:srcCompat="@mipmap/ic_card_sample_background" />
 
     <Button
         android:id="@+id/gamebutton1"

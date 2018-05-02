@@ -5,12 +5,12 @@ import dagger.Provides;
 @Module
 public class InteractorModule {
     @Provides
-    public HSCardIteractor provideAccount() {
-        return new HSCardIteractor();
+    public HSCardInteractor provideHSCardInteractor() {
+        return new HSCardInteractor();
     }
 
     @Provides
-    public ResultIteractor provideRequirement() {
-        return new ResultIteractor();
+    public ResultInteractor provideResultInteractor() {
+        return new ResultInteractor();
     }
 }
