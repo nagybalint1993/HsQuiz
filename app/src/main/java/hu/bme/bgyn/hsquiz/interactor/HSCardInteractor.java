@@ -29,10 +29,10 @@ public class HSCardInteractor {
         HsQuizApplication.injector.inject(this);
     }
 
-    public void getCards(){
+    public void getCards(int pageSize, int offset){
         GetHSCardsEvent event= new GetHSCardsEvent();
         try{
-            Call<List<Card>> cardsCall = cardsApi.cardsGet();
+            Call<List<Card>> cardsCall = cardsApi.cardsGet(String.valueOf(pageSize), String.valueOf(offset));
 
             Response<List<Card>> response = cardsCall.execute();
             if (response.code() != 200) {

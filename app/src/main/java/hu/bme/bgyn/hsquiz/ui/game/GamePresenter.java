@@ -25,6 +25,7 @@ import hu.bme.bgyn.hsquiz.interactor.events.GetHSCardsEvent;
 import hu.bme.bgyn.hsquiz.interactor.events.GetImageEvent;
 import hu.bme.bgyn.hsquiz.model.Card;
 import hu.bme.bgyn.hsquiz.network.Network;
+import hu.bme.bgyn.hsquiz.network.NetworkConfig;
 import hu.bme.bgyn.hsquiz.ui.BasePresenter;
 
 public class GamePresenter extends BasePresenter<GameScreen> {
@@ -39,12 +40,19 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     private String currentCardName;
     private int currentPoint;
 
+    List<Card> cardsList;
+
+    boolean inited= false;
+
     @Override
     public void attachScreen(GameScreen screen) {
         super.attachScreen(screen);
         HsQuizApplication.injector.inject(this);
         EventBus.getDefault().register(this);
         currentPoint=0;
+        if(cardsList== null){
+            cardsList= new ArrayList<Card>();
+        }
     }
 
     @Override
@@ -66,22 +74,16 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     }
 
     public void initGame(){
-        networkExecutor.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                hSCardInteractor.getCards();
-            }
-        });
-
-
-        /*
-        try {
-            Drawable drawable= DownloadDrawable("http://media.services.zam.com/v1/media/byName/hs/cards/enus/CS2_008.png","Blessing of mindes");
-            screen.setImageView(drawable);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        if(!inited){
+            networkExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    for(int i= 0; i< NetworkConfig.CARDSCOUNT/100; i++){
+                        hSCardInteractor.getCards(100,i*100);
+                    }
+                }
+            });
+        }
     }
 
     Drawable DownloadDrawable(String url, String src_name) throws java.io.IOException {
@@ -96,25 +98,10 @@ public class GamePresenter extends BasePresenter<GameScreen> {
                 screen.showNetworkError(event.getThrowable().getMessage());
             }
         } else {
-            if (screen != null) {
-                List<Card> cards= event.getCarsList();
-                List<String> list= new ArrayList<>();
-                for (Card c: cards) {
-                    list.add(c.getName());
-                }
-
-                screen.setButtons(list);
-
-                int current= new Random().nextInt(4);
-                currentCardName= list.get(current);
-                final String url= cards.get(current).getImg();
-                networkExecutor.execute(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        hSCardInteractor.getImage(url);
-                    }
-                });
+            cardsList.addAll(event.getCarsList());
+            if(!inited){
+                setGameButtons();
+                inited= true;
             }
         }
     }
@@ -122,6 +109,32 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetImageEvent event) {
         screen.setImageView(event.getImage());
+    }
+
+    public void setGameButtons(){
+        List<Card> list= new ArrayList<>();
+        Random r= new Random();
+        int length= cardsList.size();
+        int[] cards = {r.nextInt(length),
+                r.nextInt(length),
+                r.nextInt(length),
+                r.nextInt(length)};
+
+
+        for(int i= 0; i<4; i++){
+            list.add(cardsList.get(cards[i]));
+        }
+        screen.setButtons(list);
+
+        int current= new Random().nextInt(4);
+        currentCardName= list.get(current).getName();
+        final String url= list.get(current).getImg();
+        networkExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                hSCardInteractor.getImage(url);
+            }
+        });
     }
 
 

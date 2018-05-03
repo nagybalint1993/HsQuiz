@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import hu.bme.bgyn.hsquiz.HsQuizApplication;
 import hu.bme.bgyn.hsquiz.R;
+import hu.bme.bgyn.hsquiz.model.Card;
 
 public class GameActivity extends AppCompatActivity implements GameScreen {
 
@@ -37,6 +38,7 @@ public class GameActivity extends AppCompatActivity implements GameScreen {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         HsQuizApplication.injector.inject(this);
+
 
         btn1 = (Button) findViewById(R.id.gamebutton1);
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +82,7 @@ public class GameActivity extends AppCompatActivity implements GameScreen {
     protected void onStart() {
         super.onStart();
         gamePresenter.attachScreen(this);
+        gamePresenter.initGame();
     }
 
     @Override
@@ -91,7 +94,6 @@ public class GameActivity extends AppCompatActivity implements GameScreen {
     @Override
     protected void onResume() {
         super.onResume();
-        gamePresenter.initGame();
     }
 
     @Override
@@ -106,11 +108,11 @@ public class GameActivity extends AppCompatActivity implements GameScreen {
     }
 
     @Override
-    public void setButtons(List<String> names) {
-        btn1.setText(names.get(0));
-        btn2.setText(names.get(1));
-        btn3.setText(names.get(2));
-        btn4.setText(names.get(3));
+    public void setButtons(List<Card> names) {
+        btn1.setText(names.get(0).getName());
+        btn2.setText(names.get(1).getName());
+        btn3.setText(names.get(2).getName());
+        btn4.setText(names.get(3).getName());
     }
 
     @Override
