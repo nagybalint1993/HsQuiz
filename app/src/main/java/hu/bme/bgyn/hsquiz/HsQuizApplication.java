@@ -9,6 +9,7 @@ public class HsQuizApplication extends Application {
 
     public static HsQuizApplicationComponent injector;
     private static Context context;
+    private static String userName;
 
     @Override
     public void onCreate() {
@@ -19,5 +20,13 @@ public class HsQuizApplication extends Application {
 
     public static Context getAppContext() {
         return HsQuizApplication.context;
+    }
+
+    public static void setUserName(String name){
+        userName= name;
+    }
+
+    public static String getUserName() {
+        return userName;
     }
 }

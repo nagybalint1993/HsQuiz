@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import hu.bme.bgyn.hsquiz.Repository.GameRepository;
+import hu.bme.bgyn.hsquiz.Repository.RepositoryModule;
 import hu.bme.bgyn.hsquiz.interactor.HSCardInteractor;
 import hu.bme.bgyn.hsquiz.interactor.InteractorModule;
 import hu.bme.bgyn.hsquiz.interactor.ResultInteractor;
@@ -15,12 +16,13 @@ import hu.bme.bgyn.hsquiz.ui.globalresult.GlobalResultActivity;
 import hu.bme.bgyn.hsquiz.ui.globalresult.GlobalResultPresenter;
 import hu.bme.bgyn.hsquiz.ui.localresult.LocalResultActivity;
 import hu.bme.bgyn.hsquiz.ui.localresult.LocalResultPresenter;
+import hu.bme.bgyn.hsquiz.ui.login.LoginActivity;
 import hu.bme.bgyn.hsquiz.ui.main.MainActivity;
 import hu.bme.bgyn.hsquiz.ui.main.MainPresenter;
 
 @Singleton
 @Component(modules = {UIModule.class, NetworkModule.class,
-        InteractorModule.class})
+        InteractorModule.class, RepositoryModule.class})
 public interface HsQuizApplicationComponent {
 
     void inject(MainActivity mainActivity);
@@ -44,4 +46,6 @@ public interface HsQuizApplicationComponent {
     void inject(LocalResultPresenter localResultPresenter);
 
     void inject(GameRepository gameRepository);
+
+    void inject(LoginActivity loginActivity);
 }

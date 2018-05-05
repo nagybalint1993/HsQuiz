@@ -25,6 +25,7 @@ import hu.bme.bgyn.hsquiz.interactor.HSCardInteractor;
 import hu.bme.bgyn.hsquiz.interactor.events.GetHSCardsEvent;
 import hu.bme.bgyn.hsquiz.interactor.events.GetImageEvent;
 import hu.bme.bgyn.hsquiz.model.Card;
+import hu.bme.bgyn.hsquiz.model.Result;
 import hu.bme.bgyn.hsquiz.network.Network;
 import hu.bme.bgyn.hsquiz.network.NetworkConfig;
 import hu.bme.bgyn.hsquiz.ui.BasePresenter;
@@ -44,6 +45,8 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     List<Card> cardsList;
 
     boolean inited= false;
+
+    @Inject
     GameRepository gameRepository;
 
     @Override
@@ -55,7 +58,7 @@ public class GamePresenter extends BasePresenter<GameScreen> {
         if(cardsList== null){
             cardsList= new ArrayList<Card>();
         }
-        gameRepository= new GameRepository();
+        //gameRepository= new GameRepository();
         gameRepository.open(HsQuizApplication.getAppContext());
     }
 
@@ -70,6 +73,10 @@ public class GamePresenter extends BasePresenter<GameScreen> {
             currentPoint = currentPoint + 10;
             refreshPoints();
             setGameButtons();
+        }
+        else {
+            Result result= new Result(HsQuizApplication.getUserName(), currentPoint);
+            gameRepository.createResult(result);
         }
 
 

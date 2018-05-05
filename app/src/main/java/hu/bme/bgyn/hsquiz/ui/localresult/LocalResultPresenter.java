@@ -3,21 +3,26 @@ package hu.bme.bgyn.hsquiz.ui.localresult;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import hu.bme.bgyn.hsquiz.HsQuizApplication;
 import hu.bme.bgyn.hsquiz.Repository.GameRepository;
 import hu.bme.bgyn.hsquiz.model.Result;
 import hu.bme.bgyn.hsquiz.ui.BasePresenter;
 
 public class LocalResultPresenter extends BasePresenter<LocalResultScreen>{
 
-    GameRepository repository;
+    @Inject
+    GameRepository gameRepository;
 
     public LocalResultPresenter(){
-        repository= new GameRepository();
+
     }
 
     @Override
     public void attachScreen(LocalResultScreen screen) {
         super.attachScreen(screen);
+        HsQuizApplication.injector.inject(this);
     }
 
     @Override
@@ -27,8 +32,8 @@ public class LocalResultPresenter extends BasePresenter<LocalResultScreen>{
 
 
     public void refreshResults() {
-        List<Result> results= new ArrayList<Result>();
-        results.add(new Result("Bálint",100));
+        List<Result> results= gameRepository.getTopTenResult();
+
         screen.showResults(results);
     }
 }

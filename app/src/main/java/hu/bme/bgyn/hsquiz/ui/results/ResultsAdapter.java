@@ -32,7 +32,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ViewHold
         Result result = resultsList.get(position);
         holder.nameTextView.setText(result.getUser());
         holder.pointsTextView.setText("Points: " + result.getPoint().toString());
-        holder.rankTextView.setText("1.");
+        holder.rankTextView.setText(String.valueOf(position+1) +".  ");
     }
 
     @Override

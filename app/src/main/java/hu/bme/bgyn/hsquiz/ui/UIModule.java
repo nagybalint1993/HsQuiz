@@ -14,6 +14,7 @@ import hu.bme.bgyn.hsquiz.network.Network;
 import hu.bme.bgyn.hsquiz.ui.game.GamePresenter;
 import hu.bme.bgyn.hsquiz.ui.globalresult.GlobalResultPresenter;
 import hu.bme.bgyn.hsquiz.ui.localresult.LocalResultPresenter;
+import hu.bme.bgyn.hsquiz.ui.login.LoginPresenter;
 import hu.bme.bgyn.hsquiz.ui.main.MainPresenter;
 
 @Module
@@ -45,6 +46,10 @@ public class UIModule {
     public LocalResultPresenter provideLocalResultPresenter() {
         return new LocalResultPresenter();
     }
+
+    @Provides
+    @Singleton
+    public LoginPresenter provideLoginPresenter(){return  new LoginPresenter();}
 
 
     @Provides
