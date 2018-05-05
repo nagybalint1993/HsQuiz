@@ -1,24 +1,18 @@
 package hu.bme.bgyn.hsquiz.ui.localresult;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import hu.bme.bgyn.hsquiz.Repository.Repository;
-import hu.bme.bgyn.hsquiz.Repository.ResultRepository;
+import hu.bme.bgyn.hsquiz.Repository.GameRepository;
 import hu.bme.bgyn.hsquiz.model.Result;
 import hu.bme.bgyn.hsquiz.ui.BasePresenter;
 
 public class LocalResultPresenter extends BasePresenter<LocalResultScreen>{
 
-    ResultRepository repository;
+    GameRepository repository;
 
     public LocalResultPresenter(){
-        repository= new ResultRepository();
+        repository= new GameRepository();
     }
 
     @Override

@@ -84,4 +84,9 @@ public class MainActivity extends AppCompatActivity implements MainScreen{
         Intent intent = new Intent(this, GlobalResultActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void showNetworkError(String msg) {
+
+    }
 }

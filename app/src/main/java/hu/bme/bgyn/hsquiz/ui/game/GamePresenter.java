@@ -20,6 +20,7 @@ import java.util.concurrent.Executor;
 import javax.inject.Inject;
 
 import hu.bme.bgyn.hsquiz.HsQuizApplication;
+import hu.bme.bgyn.hsquiz.Repository.GameRepository;
 import hu.bme.bgyn.hsquiz.interactor.HSCardInteractor;
 import hu.bme.bgyn.hsquiz.interactor.events.GetHSCardsEvent;
 import hu.bme.bgyn.hsquiz.interactor.events.GetImageEvent;
@@ -43,6 +44,7 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     List<Card> cardsList;
 
     boolean inited= false;
+    GameRepository gameRepository;
 
     @Override
     public void attachScreen(GameScreen screen) {
@@ -53,6 +55,8 @@ public class GamePresenter extends BasePresenter<GameScreen> {
         if(cardsList== null){
             cardsList= new ArrayList<Card>();
         }
+        gameRepository= new GameRepository();
+        gameRepository.open(HsQuizApplication.getAppContext());
     }
 
     @Override
@@ -65,7 +69,9 @@ public class GamePresenter extends BasePresenter<GameScreen> {
         if(s == currentCardName){
             currentPoint = currentPoint + 10;
             refreshPoints();
+            setGameButtons();
         }
+
 
     }
 
@@ -73,23 +79,12 @@ public class GamePresenter extends BasePresenter<GameScreen> {
         screen.refreshPoints(currentPoint);
     }
 
-    public void initGame(){
-        if(!inited){
-            networkExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    for(int i= 0; i< NetworkConfig.CARDSCOUNT/100; i++){
-                        hSCardInteractor.getCards(100,i*100);
-                    }
-                }
-            });
-        }
-    }
 
     Drawable DownloadDrawable(String url, String src_name) throws java.io.IOException {
         return Drawable.createFromStream(((java.io.InputStream) new java.net.URL(url).getContent()), src_name);
     }
 
+    /*
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetHSCardsEvent event) {
         if (event.getThrowable() != null) {
@@ -104,14 +99,22 @@ public class GamePresenter extends BasePresenter<GameScreen> {
                 inited= true;
             }
         }
-    }
+    }*/
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetImageEvent event) {
+        if(event.getImage() == null){
+            gameRepository.clearCard(currentCardName);
+            setGameButtons();
+        }
         screen.setImageView(event.getImage());
     }
 
     public void setGameButtons(){
+        if(!inited){
+            cardsList= gameRepository.getAllCard();
+            inited= true;
+        }
         List<Card> list= new ArrayList<>();
         Random r= new Random();
         int length= cardsList.size();

@@ -3,10 +3,12 @@ package hu.bme.bgyn.hsquiz.ui.game;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,6 +31,7 @@ public class GameActivity extends AppCompatActivity implements GameScreen {
     private Button btn4;
     private ImageView cardView;
     private TextView pointsView;
+    private SurfaceView surfaceView;
 
     @Inject
     GamePresenter gamePresenter;
@@ -75,6 +78,7 @@ public class GameActivity extends AppCompatActivity implements GameScreen {
         cardView = (ImageView) findViewById(R.id.imageView);
 
         pointsView = (TextView) findViewById(R.id.pointsTextView);
+        surfaceView= (SurfaceView) findViewById(R.id.surfaceView);
 
     }
 
@@ -82,13 +86,26 @@ public class GameActivity extends AppCompatActivity implements GameScreen {
     protected void onStart() {
         super.onStart();
         gamePresenter.attachScreen(this);
-        gamePresenter.initGame();
+        gamePresenter.setGameButtons();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         gamePresenter.detachScreen();
+    }
+
+    public void disableSurfaceView(){
+        surfaceView.setEnabled(false);
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                surfaceView.setEnabled(true);
+            }
+        },2000);
     }
 
     @Override

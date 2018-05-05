@@ -7,4 +7,6 @@ public interface MainScreen {
     void showLocalResult();
 
     void showGlobalResult();
+
+    void showNetworkError(String msg);
 }

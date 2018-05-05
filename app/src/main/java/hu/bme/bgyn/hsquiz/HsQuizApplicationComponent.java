@@ -3,6 +3,7 @@ package hu.bme.bgyn.hsquiz;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import hu.bme.bgyn.hsquiz.Repository.GameRepository;
 import hu.bme.bgyn.hsquiz.interactor.HSCardInteractor;
 import hu.bme.bgyn.hsquiz.interactor.InteractorModule;
 import hu.bme.bgyn.hsquiz.interactor.ResultInteractor;
@@ -41,4 +42,6 @@ public interface HsQuizApplicationComponent {
     void inject(LocalResultActivity localResultActivity);
 
     void inject(LocalResultPresenter localResultPresenter);
+
+    void inject(GameRepository gameRepository);
 }

@@ -5,12 +5,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import com.google.gson.annotations.SerializedName;
-
-
+import com.orm.SugarRecord;
 
 
 @ApiModel(description = "")
-public class Card   {
+public class Card extends SugarRecord{
 
   @SerializedName("name")
   private String name = null;
