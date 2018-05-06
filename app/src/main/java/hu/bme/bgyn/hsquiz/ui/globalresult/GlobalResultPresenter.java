@@ -5,6 +5,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -59,6 +60,20 @@ public class GlobalResultPresenter extends BasePresenter<GlobalResultScreen> {
             }
         } else {
             if (screen != null) {
+                List<Result> list= event.getResultsList();
+                list.sort(new Comparator<Result>() {
+                    @Override
+                    public int compare(Result o1, Result o2) {
+                        if(o1.getPoint()> o2.getPoint()){
+                            return -1;
+                        }
+                        if(o1.getPoint()< o2.getPoint()){
+                            return 1;
+                        }
+                        return 0;
+
+                    }
+                });
                 screen.showResults(event.getResultsList());
             }
         }

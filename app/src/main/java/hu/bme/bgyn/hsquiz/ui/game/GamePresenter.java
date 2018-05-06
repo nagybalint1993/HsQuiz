@@ -71,15 +71,14 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     public void gameButtonPressed(int i, String s) {
         if(s == currentCardName){
             currentPoint = currentPoint + 10;
-            refreshPoints();
-            setGameButtons();
         }
         else {
             Result result= new Result(HsQuizApplication.getUserName(), currentPoint);
             gameRepository.createResult(result);
+            currentPoint=0;
         }
-
-
+        refreshPoints();
+        setGameButtons();
     }
 
     private void refreshPoints() {
