@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import hu.bme.bgyn.hsquiz.HsQuizApplication;
 import hu.bme.bgyn.hsquiz.Repository.GameRepository;
 import hu.bme.bgyn.hsquiz.interactor.HSCardInteractor;
+import hu.bme.bgyn.hsquiz.interactor.ResultInteractor;
 import hu.bme.bgyn.hsquiz.interactor.events.GetHSCardsEvent;
 import hu.bme.bgyn.hsquiz.interactor.events.GetImageEvent;
 import hu.bme.bgyn.hsquiz.model.Card;
@@ -38,6 +39,9 @@ public class GamePresenter extends BasePresenter<GameScreen> {
 
     @Inject
     HSCardInteractor hSCardInteractor;
+
+    @Inject
+    ResultInteractor resultInteractor;
 
     private String currentCardName;
     private int currentPoint;
@@ -73,9 +77,16 @@ public class GamePresenter extends BasePresenter<GameScreen> {
             currentPoint = currentPoint + 10;
         }
         else {
-            Result result= new Result(HsQuizApplication.getUserName(), currentPoint);
+            final Result result= new Result(HsQuizApplication.getUserName(), currentPoint);
             gameRepository.createResult(result);
+
             currentPoint=0;
+            networkExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    resultInteractor.postResult(result);
+                }
+            });
         }
         refreshPoints();
         setGameButtons();
@@ -86,26 +97,6 @@ public class GamePresenter extends BasePresenter<GameScreen> {
     }
 
 
-    Drawable DownloadDrawable(String url, String src_name) throws java.io.IOException {
-        return Drawable.createFromStream(((java.io.InputStream) new java.net.URL(url).getContent()), src_name);
-    }
-
-    /*
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(final GetHSCardsEvent event) {
-        if (event.getThrowable() != null) {
-            event.getThrowable().printStackTrace();
-            if (screen != null) {
-                screen.showNetworkError(event.getThrowable().getMessage());
-            }
-        } else {
-            cardsList.addAll(event.getCarsList());
-            if(!inited){
-                setGameButtons();
-                inited= true;
-            }
-        }
-    }*/
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(final GetImageEvent event) {

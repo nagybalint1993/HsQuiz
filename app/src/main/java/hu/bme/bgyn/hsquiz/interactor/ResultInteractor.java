@@ -38,4 +38,16 @@ public class ResultInteractor {
             EventBus.getDefault().post(event);
         }
     }
+
+    public  void postResult(Result result){
+        Call<Result> resultCall= resultApi.resultsPost(result);
+        try{
+            Response<Result> response= resultCall.execute();
+            if (response.code() != 200) {
+                throw new Exception("Result code is not 200");
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }
