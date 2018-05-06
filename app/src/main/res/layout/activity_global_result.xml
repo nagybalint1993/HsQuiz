@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/ic_launcher_background"
-    tools:context=".ui.globalresult.GlobalResultActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_global_result" />
+    android:orientation="vertical"
+    android:background="@mipmap/ic_launcher_background">
 
     <TextView
         android:id="@+id/textView3"
@@ -26,4 +15,24 @@
         android:textColor="@android:color/background_dark"
         android:textSize="50sp" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutGlobalResults"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewGlobalResults"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/recyclerViewGlobalResults"
+            android:gravity="center"
+            android:text="No data"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

@@ -11,7 +11,7 @@ import com.orm.SugarRecord;
 
 
 @ApiModel(description = "")
-public class Result extends SugarRecord<Result> {
+public class Result extends SugarRecord {
   
   @SerializedName("User")
   private String user = null;

@@ -21,8 +21,9 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public CardsApi provideCardssApi(Retrofit.Builder retrofitBuilder) {
-        return retrofitBuilder.baseUrl(NetworkConfig.CARDSAPI_ENDPOINT_ADDRESS).build().create(CardsApi.class);
+    public CardsApi provideCardsApi(Retrofit.Builder retrofitBuilder) {
+        return retrofitBuilder.baseUrl(NetworkConfig.RESULTAPI_ENDPOINT_ADDRESS
+        ).build().create(CardsApi.class);
     }
 
 
