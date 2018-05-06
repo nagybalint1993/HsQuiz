@@ -36,7 +36,7 @@ public class MainPresenter extends BasePresenter<MainScreen> {
         HsQuizApplication.injector.inject(this);
         gameRepository= new GameRepository();
         gameRepository.open(HsQuizApplication.getAppContext());
-        if(gameRepository.getAllCard().size() < 100){
+        if(gameRepository.getAllCard().size() < 100 ){
             EventBus.getDefault().register(this);
             networkExecutor.execute(new Runnable() {
                 @Override
@@ -47,7 +47,6 @@ public class MainPresenter extends BasePresenter<MainScreen> {
                 }
             });
         }
-
     }
 
     @Override

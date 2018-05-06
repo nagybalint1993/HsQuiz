@@ -17,6 +17,10 @@ public class Card extends SugarRecord{
   @SerializedName("img")
   private String img = null;
 
+  public Card(String name, String img){
+    this.name= name;
+    this.img= img;
+  }
 
 
   /**
