@@ -9,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import javax.inject.Inject;
 
 import hu.bme.bgyn.hsquiz.HsQuizApplication;
@@ -21,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen{
 
     @Inject
     MainPresenter mainPresenter;
+
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements MainScreen{
                 mainPresenter.onGlobalResultButtonPressed();
             }
         });
-
+        HsQuizApplication application = (HsQuizApplication) getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -68,9 +74,22 @@ public class MainActivity extends AppCompatActivity implements MainScreen{
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        String name= "MainScreen";
+        mTracker.setScreenName("Image~" + name);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+    @Override
     public void startGame() {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
+
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("StartGame")
+                .build());
     }
 
     @Override
